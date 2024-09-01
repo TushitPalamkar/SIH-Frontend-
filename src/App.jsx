@@ -11,6 +11,8 @@ import AboutState from './pages/AboutState';
 import Layout from './Layout';
 import Foods from './pages/Foods';
 import Destinations from './pages/Destinations';
+import Clothes from './pages/Clothes';
+import Festivals from './pages/Festivals';
 function App() {
   return (
     <div className="App">
@@ -24,6 +26,8 @@ function App() {
           <Route path='/aboutstate/:id' element={<AboutState/>}/>
           <Route path='/foods/:id' element={<Foods/>}/>
           <Route path='/destinations/:id' element={<Destinations/>}/>
+          <Route path='/clothes/:id' element={<Clothes/>}/>
+          <Route path='/festival/:id' element={<Festivals/>}/>
           </Route>
           
         </Routes>

@@ -26,14 +26,14 @@ export default function Footer() {
                     <div className="footer-4 fot-info">
                         <h3>Contact Us</h3>
                         <ul>
-                            <li><a href="https://github.com/">ABC</a></li>
-                            <li><a href="https://github.com/">ABC</a></li>
-                            <li><a href="https://github.com/">ABC</a></li>
+                            <li><a href="https://github.com/">VAIBHAV MEWARA</a></li>
+                            <li><a href="https://github.com/">RONAK GUPTA</a></li>
+                            <li><a href="https://github.com/">TALISH SHIEKH</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <p className="copyright">Developed by ...</p>
+            <p className="copyright">Developed by Vaibhav, Ronak, Talish</p>
         </footer>
     );
 }
