@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
-
 export default function Foods() {
     const { id } = useParams();
     const [foods, setFoods] = useState([]);
+    const [expanded, setExpanded] = useState({});
 
     useEffect(() => {
         async function getFoods() {
@@ -20,15 +20,32 @@ export default function Foods() {
         getFoods();
     }, [id]);
 
+    const handleClick = (index) => {
+        setExpanded(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
+
     return (
         <div className="foods-container">
             {foods.length > 0 ? (
-                foods.map((food) => (
+                foods.map((food, index) => (
                     <div key={food.foodstate} className="food-card">
                         <h2>{food.name}</h2>
                         <img src={food.foodimg} alt={food.name} className="food-image" />
-                        <p className="food-description">{food.description}</p>
-                        <p className="food-recipes">Recipes: {food.recipes}</p>
+                        <p 
+                            className={`food-description ${expanded[index] ? 'expanded' : ''}`} 
+                            onClick={() => handleClick(index)}
+                        >
+                            {food.description}
+                        </p>
+                        <p 
+                            className={`food-recipes ${expanded[index] ? 'expanded' : ''}`} 
+                            onClick={() => handleClick(index)}
+                        >
+                            {food.recipes}
+                        </p>
                     </div>
                 ))
             ) : (

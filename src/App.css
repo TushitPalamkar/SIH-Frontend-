@@ -12,16 +12,18 @@ html {
 }
 
 .about-state {
-  padding-top: 250px; /* Keeps space below the navbar */
+  padding-top: 200px; /* Keeps space below the navbar */
    /* Add additional padding for spacing around the content */
   margin: 0 auto; /* Center the content */
-  max-width: 800px; /* Limit the width for better readability */
-  background-color: #f0f8ff; /* Light background color for contrast */
+  max-width: 90%; /* Limit the width for better readability */
+  background: linear-gradient(45deg, #fbc2eb, #a6c0fe);
+
   border-radius: 8px; /* Rounded corners for the container */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   text-align: center; /* Center text for better presentation */
   display: flex;
   flex-direction: column;
+  
 }
 
 .about-state h1 {
@@ -52,8 +54,10 @@ html {
 }
 
 .foods-container {
-  padding-top: 100px;
+  padding-top: 150px;
+  padding-bottom: 150px;
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
   background-color: #f0f8ff; /* Light background color for contrast */
@@ -68,11 +72,16 @@ html {
   padding: 20px; /* Padding inside the card */
   text-align: center; /* Center the text */
   max-width: 300px; /* Limit the card width */
+  overflow: hidden;
+  height: 500px;
+  width: 300px;
 }
 
 .food-image {
   width: 100%; /* Responsive image */
   border-radius: 5px; /* Rounded corners for the image */
+  object-fit: cover;
+  height: 200px;
 }
 
 .food-description, .food-recipes {
@@ -80,6 +89,10 @@ html {
   color: #333; /* Darker text color for better readability */
   line-height: 1.5; /* Increased line height for better spacing */
   margin: 10px 0; /* Add margin for spacing between paragraphs */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+  transition: max-height 0.3s ease;
 }
 
 .food-recipes {
@@ -93,13 +106,14 @@ html {
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px;
-
+  
 }
 .destinations-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding-top: 120px;
+  gap: 20px;
   background-color: #f0f8ff; /* Light background color for contrast */
 }
 
@@ -112,16 +126,45 @@ html {
   padding: 20px; /* Padding inside the card */
   text-align: center; /* Center the text */
   max-width: 300px; /* Limit the card width */
+  width: 300px;
+  padding: 16px;
+  overflow: hidden;
 }
 
 .destination-image {
   width: 100%; /* Responsive image */
+  height: 200px;
+  object-fit: cover;
   border-radius: 5px; /* Rounded corners for the image */
 }
 
 .destination-description, .destination-location {
   font-size: 16px; /* Font size for descriptions */
   color: #555; /* Darker text color */
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: max-height 0.3s ease;
+}
+
+.destination-location {
+  color: #666; /* Grey color for location text */
+  margin-top: 8px; /* Space above location text */
+}
+
+/* "Read more" button styling */
+.read-more {
+  display: inline-block;
+  color: #007bff; /* Button color */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-weight: bold; /* Bold text */
+  margin-top: 8px; /* Space above button */
+}
+
+/* Expanded text styling */
+.expanded {
+  max-height: none; /* Allows full height when expanded */
+  overflow: visible; /* Shows all text */
 }
 
 a {
@@ -145,13 +188,16 @@ p {
 /* Container for the clothes items */
 .clothes-container {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: row;
+  gap: 60px;
   justify-content: center;
   align-items: center;
-  padding-top: 120px;
+  padding-top: 200px;
+  padding-bottom: 150px;
   background-color: #f5f5f5;
+  gap: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 /* Each individual cloth card */
@@ -163,10 +209,12 @@ p {
   padding: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .cloth-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
 }
 
 /* Cloth name styling */
@@ -182,12 +230,24 @@ p {
   height: auto;
   border-radius: 10px;
   margin-bottom: 15px;
+  object-fit: cover;
 }
 
 /* Cloth description styling */
 .cloth-description {
   font-size: 1em;
   color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: max-height 0.3s ease;
+  max-height: 40px;
+}
+
+.cloth-description.expanded{
+  white-space: normal;
+  max-height: none;
 }
 
 .img-responsive {
@@ -244,12 +304,16 @@ header {
 nav {
   position: fixed;
   z-index: 99;
+  margin: 10px;
   width: 100%;
-  padding: 30px 0;
+  padding-inline: 5px;
+  padding: 30px;
   transition: all 0.5s ease;
   background-color: black;
   color: white;
   height: 110px;
+  font-size: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .nav-fixed {
@@ -410,6 +474,8 @@ section#slides_parent {
 .slides {
   display: flex;
   justify-content: center;
+  
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 .slides h4 {
@@ -420,21 +486,24 @@ section#slides_parent {
 }
 
 .slide_1 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://tse1.mm.bing.net/th?id=OIP.UoMdRCrgOp_sn0N1o9T35wHaLG&pid=Api&P=0&h=180);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../imgs/food-gen.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 60px;
   min-width: 60px;
   height: 300px;
   border-radius: 40px;
   margin: 0 15px;
   position: relative;
   transition: all 0.5s ease;
+  height: 400px;
+  width: 100px;
+  text-decoration: none; /* Removes underline from links */
 }
 
 .slide_1:hover {
   min-width: 250px;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out
 }
 
 .slide_1:hover .slide_info {
@@ -442,23 +511,27 @@ section#slides_parent {
   left: 20px;
   bottom: 20px;
   font-size: 22px;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out
 }
 
-.slide_2 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/marathi-bolibhasha_20180582724.jpg);
+.link {
+  text-decoration: none; /* Removes the underline from all anchor tags */
 }
 
+
+/* Additional slide classes */
 .slide_3 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://thumbs.dreamstime.com/z/maharashtrian-couple-traditional-costume-maharashtra-india-vector-design-74416497.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../imgs/clothing-gen.jpg');
 }
 
 .slide_4 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://tse2.mm.bing.net/th?id=OIP.lyjgL3pvSYmnEj44QSWbjwAAAA&pid=Api&P=0&h=180);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../imgs/festivals-gen.jpg');
 }
 
 .slide_5 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://tse2.mm.bing.net/th?id=OIP.yBoExbwbo9kqlV3X5FGdzwHaDt&pid=Api&P=0&h=180);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../imgs/tourism-gen.jpg');
 }
+
 
 
 .slide_info {
@@ -469,9 +542,13 @@ section#slides_parent {
   right: 0px;
   font-weight: 700;
   font-size: 12px;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out
 }
 
 /*welcome Sec Css*/
+.logo-par Link h2{
+  text-decoration: none;
+}
 
 section#welcome_Sec {
   text-align: center;
@@ -844,7 +921,7 @@ section#fiji-holyday h3 {
 
 
 #blog {
-  padding: 100px 0;
+  padding: 150px 0;
 }
 
 #blog h3 {
@@ -859,11 +936,21 @@ section#fiji-holyday h3 {
 div#blog-par {
   display: flex;
   margin-top: 70px;
+  
+  justify-content: space-around;
 }
 
 .blog-content {
   display: flex;
   align-items: center;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.blog-content:hover {
+  transform: translateY(-10px);
 }
 
 .blog-info ul li {
@@ -876,8 +963,10 @@ div#blog-par {
   margin-right: 5px;
 }
 
-.blog-img {
+.blog-img img{
   position: relative;
+  width: 100%;
+    border-radius: 8px 8px 0 0;
 }
 
 /*.blog-img:before {
@@ -891,10 +980,7 @@ div#blog-par {
   padding: 9px;
 }*/
 
-.blog-img img {
-  height: 140px;
-  width: 300px;
-}
+
 
 .blog-info {
   margin-left: 30px;
@@ -1047,6 +1133,7 @@ footer {
 
   section#slides_parent {
       padding-bottom: 50px;
+      
   }
 
   .slide_info {
@@ -1155,3 +1242,33 @@ footer {
 }
 
 @media screen and (max-width:950px) {}
+
+.carousel-inner{
+  height: 540px;
+  color: #000;
+}
+.carousel-caption{
+  color: #000;
+}
+
+.map-text2{
+  padding: 5px;
+  font-weight: bold;
+  font-size: 25px;
+  font-family:'Trebuchet MS',sans-serif;
+}
+
+.map-sect{
+  padding: 5px;
+}
+
+.d-block{
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4);
+}
+
+/* app.css */
+.menu_hover {
+  text-decoration: none; /* Remove underlines from links */
+  color: inherit; /* Optional: Ensure link color inherits from parent */
+}

@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 export default function Clothes() {
     const { id } = useParams();
     const [clothes, setClothes] = useState([]);
+    const [expanded, setExpanded] = useState({});
 
     useEffect(() => {
-        async function getClothes() {  // Corrected function name to getClothes
+        async function getClothes() {
             try {
                 const response = await axios.get(`https://sih-backend-f30f.onrender.com/clothesbystate/${id}`);
                 console.log(response.data);
@@ -16,17 +17,29 @@ export default function Clothes() {
                 console.log(error);
             }
         }
-        getClothes();  // Corrected function call
+        getClothes();
     }, [id]);
 
+    const handleClick = (index) => {
+        setExpanded(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
+
     return (
-        <div className="clothes-container">  {/* Updated class name */}
+        <div className="clothes-container">
             {clothes.length > 0 ? (
-                clothes.map((cloth) => (
-                    <div className="cloth-card" key={cloth.id}>  {/* Ensure unique key */}
-                        <h2>{cloth.name}</h2>  {/* Fixed variable to use cloth instead of clothes */}
-                        <img src={cloth.clothimg} alt={cloth.name} className="cloth-image" />  {/* Updated class names */}
-                        <p className="cloth-description">{cloth.description}</p>  {/* Updated class names */}
+                clothes.map((cloth, index) => (
+                    <div className="cloth-card" key={cloth.id}>
+                        <h2>{cloth.name}</h2>
+                        <img src={cloth.clothimg} alt={cloth.name} className="cloth-image" />
+                        <p 
+                            className={`cloth-description ${expanded[index] ? 'expanded' : ''}`} 
+                            onClick={() => handleClick(index)}
+                        >
+                            {cloth.description}
+                        </p>
                     </div>
                 ))
             ) : (

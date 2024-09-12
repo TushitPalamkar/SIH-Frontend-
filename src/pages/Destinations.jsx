@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-
 export default function Destinations() {
     const { id } = useParams();
     const [destinations, setDestinations] = useState([]);
+    const [expanded, setExpanded] = useState({}); // Track expanded state for each card
 
     useEffect(() => {
         async function getDestinations() {
@@ -18,16 +18,33 @@ export default function Destinations() {
             }
         }
         getDestinations();
-    }, [id]); // Added id as a dependency to re-fetch if it changes
+    }, [id]);
+
+    const toggleExpand = (index) => {
+        setExpanded((prev) => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
 
     return (
         <div className="destinations-container">
             {destinations.length > 0 ? (
-                destinations.map((destination) => (
+                destinations.map((destination, index) => (
                     <div key={destination.deststate} className="destination-card">
                         <h2>{destination.name}</h2>
                         <img src={destination.destimg} alt={destination.name} className="destination-image" />
-                        <p className="destination-description">{destination.description}</p>
+                        <p className={`destination-description ${expanded[index] ? 'expanded' : ''}`}>
+                            {destination.description}
+                        </p>
+                        {destination.description.length > 60 && (
+                            <span 
+                                className="read-more" 
+                                onClick={() => toggleExpand(index)}
+                            >
+                                {expanded[index] ? 'Show less' : '... Read more'}
+                            </span>
+                        )}
                         <p className="destination-location">Location: {destination.location}</p>
                     </div>
                 ))
